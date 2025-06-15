@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interview Preparation Guide</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+</head>
+<body>
+  <div class="container">
+    <h1>Interview Preparation Guide</h1>
+
+    <div class="form-container">
+      <form>
+        <h3>Add New Topic</h3>
+        <label for="topicName">Topic Name</label>
+        <input type="text" id="topicName" placeholder="Enter topic name" required>
+        <button type="button" onclick="addTopic()">Add Topic</button>
+
+        <h3>Add New Question</h3>
+        <label for="topicSelect">Select Topic</label>
+        <select id="topicSelect" required>
+          <option value="">Select Topic</option>
+          {% for topic in topics %}
+            <option value="{{ topic.id }}">{{ topic.name }}</option>
+          {% endfor %}
+        </select>
+        <label for="questionText">Question</label>
+        <input type="text" id="questionText" placeholder="Enter question" required>
+        <label for="questionAnswer">Answer</label>
+        <textarea id="questionAnswer" placeholder="Enter answer" required></textarea>
+        <button type="button" onclick="addQuestion()">Add Question</button>
+      </form>
+    </div>
+
+    <div class="topic-container">
+      {% for topic in topics %}
+        <div class="topic-box" role="region" aria-labelledby="topic-{{ topic.id }}">
+          <div class="topic-header" id="topic-{{ topic.id }}" aria-expanded="false">
+            <span>{{ topic.name }}</span>
+          </div>
+          
+          <div class="questions">
+            {% for q in topic.questions %}
+              <div class="question-box" role="region" aria-labelledby="question-{{ q.id }}">
+                <button type="button" class="delete-btn" onclick="deleteQuestion({{ q.id }})" aria-label="Delete question">Delete</button>
+                <div class="question-header" id="question-{{ q.id }}" aria-expanded="false">
+                  <span>{{ q.text }}</span>
+                </div>
+                <div class="answer">{{ q.answer }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

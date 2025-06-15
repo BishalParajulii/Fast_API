@@ -1,0 +1,48 @@
+<!-- templates/all_view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Interview Questions</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>All Interview Questions</h1>
+
+        <div class="topic-container">
+            {% for topic in topics %}
+                <div class="topic-box">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        {{ topic.name }}
+                    </div>
+                    <div class="questions">
+                        {% for question in topic.questions %}
+                            <div class="question-box">
+                                <div class="question-header" onclick="toggleAnswer(this)">
+                                    {{ question.text }}
+                                </div>
+                                <div class="answer">
+                                    {{ question.answer }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function toggleTopic(header) {
+            const topicBox = header.parentElement;
+            topicBox.classList.toggle("active");
+        }
+
+        function toggleAnswer(header) {
+            const questionBox = header.parentElement;
+            questionBox.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
